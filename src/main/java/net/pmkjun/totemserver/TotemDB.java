@@ -12,6 +12,7 @@ public class TotemDB {
     private ArrayList<Integer> valueTotemActiveTime = new ArrayList<>();
     private ArrayList<Integer> valueTotemRange = new ArrayList<>();
     private ArrayList<Long> lastTotemtime = new ArrayList<>();
+    private ArrayList<Long> lastTotemCooldownTime = new ArrayList<>();
     private ArrayList<Integer> totem_X = new ArrayList<>();
     private ArrayList<Integer> totem_Y = new ArrayList<>();
     private ArrayList<Integer> totem_Z = new ArrayList<>();
@@ -21,12 +22,13 @@ public class TotemDB {
         instance = this;
     }
 
-    public int addTotemData(String username, int valueTotemCooldown, int valueTotemActiveTime, int valueTotemRange, long lastTotemtime, int totem_X, int totem_Z, String totemWorld){
+    public int addTotemData(String username, int valueTotemCooldown, int valueTotemActiveTime, int valueTotemRange, long lastTotemtime, long lastTotemCooldownTime,int totem_X, int totem_Z, String totemWorld){
         if(this.username.contains(username)){
             this.valueTotemCooldown.set(this.username.indexOf(username), valueTotemCooldown);
             this.valueTotemActiveTime.set(this.username.indexOf(username), valueTotemActiveTime);
             this.valueTotemRange.set(this.username.indexOf(username), valueTotemRange);
             this.lastTotemtime.set(this.username.indexOf(username), lastTotemtime);
+            this.lastTotemCooldownTime.set(this.username.indexOf(username), lastTotemCooldownTime);
             this.totem_X.set(this.username.indexOf(username), totem_X);
             this.totem_Z.set(this.username.indexOf(username), totem_Z);
             this.totemWorld.set(this.username.indexOf(username), totemWorld);
@@ -37,6 +39,7 @@ public class TotemDB {
         this.valueTotemActiveTime.add(valueTotemActiveTime);
         this.valueTotemRange.add(valueTotemRange);
         this.lastTotemtime.add(lastTotemtime);
+        this.lastTotemCooldownTime.add(lastTotemCooldownTime);
         this.totem_X.add(totem_X);
         this.totem_Z.add(totem_Z);
         this.totemWorld.add(totemWorld);
@@ -48,7 +51,7 @@ public class TotemDB {
         for(int i = 0; i < this.username.size(); i++){
             if(this.username.get(i).equals(username)){
                 Gson gson = new Gson();
-                return gson.toJson(new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i), this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.totem_X.get(i), this.totem_Z.get(i), this.totemWorld.get(i)));
+                return gson.toJson(new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i), this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i), this.totem_Z.get(i), this.totemWorld.get(i)));
             }
         }
         return null;
@@ -69,7 +72,7 @@ public class TotemDB {
 
             if (distanceSquared <= rangeSquared) {
                 totemData = new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i),
-                        this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.totem_X.get(i), this.totem_Z.get(i), this.totemWorld.get(i));
+                        this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i), this.totem_Z.get(i), this.totemWorld.get(i));
                 if(!totemData.isExpired()){
                     totemDataList.add(totemData);
                 }
@@ -89,8 +92,18 @@ public class TotemDB {
         return null;
     }
 
+    public int reduceTotemCooldown(String username, long lastTotemCooldownTime){
+        if(this.username.contains(username)){
+            int i = this.username.indexOf(username);
+            this.lastTotemCooldownTime.set(i, lastTotemCooldownTime);
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
 
-    public void removeTotemData(String username){
+    public int removeTotemData(String username){
             if(this.username.contains(username)){
                 int i = this.username.indexOf(username);
                 this.username.remove(i);
@@ -98,9 +111,13 @@ public class TotemDB {
                 this.valueTotemActiveTime.remove(i);
                 this.valueTotemRange.remove(i);
                 this.lastTotemtime.remove(i);
+                this.lastTotemCooldownTime.remove(i);
                 this.totem_X.remove(i);
                 this.totem_Z.remove(i);
+                this.totemWorld.remove(i);
+                return 1;
             }
+            return 0;
     }
 
     public static TotemDB getInstance() {

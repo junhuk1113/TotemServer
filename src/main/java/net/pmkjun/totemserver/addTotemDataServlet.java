@@ -18,11 +18,12 @@ public class addTotemDataServlet extends HttpServlet {
         int valueTotemActiveTime = Integer.parseInt(request.getParameter("valueTotemActiveTime"));
         int valueTotemRange = Integer.parseInt(request.getParameter("valueTotemRange"));
         long lastTotemtime = Long.parseLong(request.getParameter("lastTotemtime"));
+        long lastTotemCooldownTime = Long.parseLong(request.getParameter("lastTotemCooldownTime"));
         int totem_X = Integer.parseInt(request.getParameter("totem_X"));
         int totem_Z = Integer.parseInt(request.getParameter("totem_Z"));
         String totemWorld = request.getParameter("totemWorld");
 
-        int returnStat = TotemDB.getInstance().addTotemData(username, valueTotemCooldown, valueTotemActiveTime, valueTotemRange, lastTotemtime, totem_X, totem_Z, totemWorld);
+        int returnStat = TotemDB.getInstance().addTotemData(username, valueTotemCooldown, valueTotemActiveTime, valueTotemRange, lastTotemtime, lastTotemCooldownTime, totem_X, totem_Z, totemWorld);
 
         // Hello
         PrintWriter out = response.getWriter();

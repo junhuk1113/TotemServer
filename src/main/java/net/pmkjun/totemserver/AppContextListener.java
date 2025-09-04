@@ -11,7 +11,7 @@ public class AppContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         // 웹 애플리케이션이 시작될 때 실행되는 코드
         System.out.println("===================================");
-        System.out.println("웹 애플리케이션 시작! 초기화 작업을 수행합니다.");
+        System.out.println("Totem Server Started.");
         System.out.println("===================================");
 
         TotemDB totemData = new TotemDB();

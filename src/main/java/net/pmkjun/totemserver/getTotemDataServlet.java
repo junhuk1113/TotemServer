@@ -19,6 +19,6 @@ public class getTotemDataServlet extends HttpServlet {
 
         // Hello
         PrintWriter out = response.getWriter();
-        out.println("<h1>" + totemdata + "</h1>");
+        out.println(totemdata);
     }
 }
