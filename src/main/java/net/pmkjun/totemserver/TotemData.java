@@ -1,17 +1,27 @@
 package net.pmkjun.totemserver;
 
 public class TotemData {
-    private String username ;
-    private int valueTotemCooldown ;
-    private int valueTotemActiveTime ;
-    private int valueTotemRange ;
-    private long lastTotemtime ;
-    private long lastTotemCooldownTime;
-    private int totem_X ;
-    private int totem_Z ;
-    private String totemWorld ;
+    public String username ;
+    public int valueTotemCooldown ;
+    public int valueTotemActiveTime ;
+    public int valueTotemRange ;
+    public long lastTotemtime ;
+    public long lastTotemCooldownTime;
+    public int totem_X ;
+    public int totem_Z ;
+    public String totemWorld ;
+    public String shareTotemPercentage;
+    public boolean isMythicalWaterActive = false;
+    public boolean isExpBoosterActive = false;
+    public boolean isOverHotspotActive = false;
+    public boolean isTreasureHunterActive = false;
+    public boolean isEntropyHoarder = false;
+    public String totemSlotString;
 
-    public TotemData(String username, int valueTotemCooldown, int valueTotemActiveTime, int valueTotemRange, long lastTotemtime, long lastTotemCooldownTime, int totem_X, int totem_Z, String totemWorld){
+    public TotemData(String username, int valueTotemCooldown, int valueTotemActiveTime, int valueTotemRange, long lastTotemtime,
+                     long lastTotemCooldownTime, int totem_X, int totem_Z, String totemWorld, String shareTotemPercentage,
+                     boolean isMythicalWaterActive, boolean isExpBoosterActive, boolean isOverHotspotActive,
+                     boolean isTreasureHunterActive, boolean isEntropyHoarder, String totemSlotString){
         this.username = username;
         this.valueTotemCooldown = valueTotemCooldown;
         this.valueTotemActiveTime = valueTotemActiveTime;
@@ -21,6 +31,13 @@ public class TotemData {
         this.totem_X = totem_X;
         this.totem_Z = totem_Z;
         this.totemWorld = totemWorld;
+        this.shareTotemPercentage = shareTotemPercentage;
+        this.isMythicalWaterActive = isMythicalWaterActive;
+        this.isExpBoosterActive = isExpBoosterActive;
+        this.isOverHotspotActive = isOverHotspotActive;
+        this.isTreasureHunterActive = isTreasureHunterActive;
+        this.isEntropyHoarder = isEntropyHoarder;
+        this.totemSlotString = totemSlotString;
     }
 
     public boolean isExpired(){

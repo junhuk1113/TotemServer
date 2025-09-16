@@ -22,8 +22,17 @@ public class addTotemDataServlet extends HttpServlet {
         int totem_X = Integer.parseInt(request.getParameter("totem_X"));
         int totem_Z = Integer.parseInt(request.getParameter("totem_Z"));
         String totemWorld = request.getParameter("totemWorld");
+        String shareTotemPercentage = request.getParameter("shareTotemPercentage");
+        boolean isMythicalWaterActive = request.getParameter("isMythicalWaterActive") == null ? false : request.getParameter("isMythicalWaterActive").equals("true");
+        boolean isExpBoosterActive = request.getParameter("isExpBoosterActive") == null ? false : request.getParameter("isExpBoosterActive").equals("true");
+        boolean isOverHotspotActive = request.getParameter("isOverHotspotActive") == null ? false : request.getParameter("isOverHotspotActive").equals("true");
+        boolean isTreasureHunterActive = request.getParameter("isTreasureHunterActive") == null ? false : request.getParameter("isTreasureHunterActive").equals("true");
+        boolean isEntropyHoarder = request.getParameter("isEntropyHoarder") == null ? false : request.getParameter("isEntropyHoarder").equals("true");
+        String totemSlotString = request.getParameter("totemSlotString");
 
-        int returnStat = TotemDB.getInstance().addTotemData(username, valueTotemCooldown, valueTotemActiveTime, valueTotemRange, lastTotemtime, lastTotemCooldownTime, totem_X, totem_Z, totemWorld);
+        int returnStat = TotemDB.getInstance().addTotemData(username, valueTotemCooldown, valueTotemActiveTime,
+                valueTotemRange, lastTotemtime, lastTotemCooldownTime, totem_X, totem_Z, totemWorld,
+                shareTotemPercentage, isMythicalWaterActive, isExpBoosterActive, isOverHotspotActive, isTreasureHunterActive, isEntropyHoarder, totemSlotString);
 
         // Hello
         PrintWriter out = response.getWriter();

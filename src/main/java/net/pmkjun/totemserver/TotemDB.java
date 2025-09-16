@@ -17,6 +17,13 @@ public class TotemDB {
     private ArrayList<Integer> totem_Y = new ArrayList<>();
     private ArrayList<Integer> totem_Z = new ArrayList<>();
     private ArrayList<String> totemWorld = new ArrayList<>();
+    private ArrayList<String> shareTotemPercentage = new ArrayList<>();
+    private ArrayList<Boolean> isMythicalWaterActive = new ArrayList<>();
+    private ArrayList<Boolean> isExpBoosterActive = new ArrayList<>();
+    private ArrayList<Boolean> isOverHotspotActive = new ArrayList<>();
+    private ArrayList<Boolean> isTreasureHunterActive = new ArrayList<>();
+    private ArrayList<Boolean> isEntropyHoarder = new ArrayList<>();
+    private ArrayList<String> totemSlotString = new ArrayList<>();
 
     private final Gson gson = new Gson();
 
@@ -24,7 +31,10 @@ public class TotemDB {
         instance = this;
     }
 
-    public int addTotemData(String username, int valueTotemCooldown, int valueTotemActiveTime, int valueTotemRange, long lastTotemtime, long lastTotemCooldownTime,int totem_X, int totem_Z, String totemWorld){
+    public int addTotemData(String username, int valueTotemCooldown, int valueTotemActiveTime, int valueTotemRange, long lastTotemtime,
+                            long lastTotemCooldownTime,int totem_X, int totem_Z, String totemWorld, String shareTotemPercentage,
+                            boolean isMythicalWaterActive, boolean isExpBoosterActive, boolean isOverHotspotActive,
+                            boolean isTreasureHunterActive, boolean isEntropyHoarder, String totemSlotString){
         if(this.username.contains(username)){
             this.valueTotemCooldown.set(this.username.indexOf(username), valueTotemCooldown);
             this.valueTotemActiveTime.set(this.username.indexOf(username), valueTotemActiveTime);
@@ -34,6 +44,13 @@ public class TotemDB {
             this.totem_X.set(this.username.indexOf(username), totem_X);
             this.totem_Z.set(this.username.indexOf(username), totem_Z);
             this.totemWorld.set(this.username.indexOf(username), totemWorld);
+            this.shareTotemPercentage.set(this.username.indexOf(username), shareTotemPercentage);
+            this.isMythicalWaterActive.set(this.username.indexOf(username), isMythicalWaterActive);
+            this.isExpBoosterActive.set(this.username.indexOf(username), isExpBoosterActive);
+            this.isOverHotspotActive.set(this.username.indexOf(username), isOverHotspotActive);
+            this.isTreasureHunterActive.set(this.username.indexOf(username), isTreasureHunterActive);
+            this.isEntropyHoarder.set(this.username.indexOf(username), isEntropyHoarder);
+            this.totemSlotString.set(this.username.indexOf(username), totemSlotString);
             return 1;
         }
         this.username.add(username);
@@ -45,6 +62,13 @@ public class TotemDB {
         this.totem_X.add(totem_X);
         this.totem_Z.add(totem_Z);
         this.totemWorld.add(totemWorld);
+        this.shareTotemPercentage.add(shareTotemPercentage);
+        this.isMythicalWaterActive.add(isMythicalWaterActive);
+        this.isExpBoosterActive.add(isExpBoosterActive);
+        this.isOverHotspotActive.add(isOverHotspotActive);
+        this.isTreasureHunterActive.add(isTreasureHunterActive);
+        this.isEntropyHoarder.add(isEntropyHoarder);
+        this.totemSlotString.add(totemSlotString);
 
         return 0;
     }
@@ -52,7 +76,11 @@ public class TotemDB {
     public String getTotemData(String username){
         for(int i = 0; i < this.username.size(); i++){
             if(this.username.get(i).equals(username)){
-                return gson.toJson(new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i), this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i), this.totem_Z.get(i), this.totemWorld.get(i)));
+                return gson.toJson(new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i),
+                        this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i),
+                        this.totem_Z.get(i), this.totemWorld.get(i), this.shareTotemPercentage.get(i), this.isMythicalWaterActive.get(i),
+                        this.isExpBoosterActive.get(i), this.isOverHotspotActive.get(i), this.isTreasureHunterActive.get(i),
+                        this.isEntropyHoarder.get(i), this.totemSlotString.get(i)));
             }
         }
         return null;
@@ -61,7 +89,11 @@ public class TotemDB {
     public String getTotemData(int index){
         int i;
         i = index;
-        return gson.toJson(new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i), this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i), this.totem_Z.get(i), this.totemWorld.get(i)));
+        return gson.toJson(new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i),
+                this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i),
+                this.totem_Z.get(i), this.totemWorld.get(i), this.shareTotemPercentage.get(i), this.isMythicalWaterActive.get(i),
+                this.isExpBoosterActive.get(i), this.isOverHotspotActive.get(i), this.isTreasureHunterActive.get(i),
+                this.isEntropyHoarder.get(i), this.totemSlotString.get(i)));
     }
 
     public String findTotemData(double playerX, double playerZ, String playerWorld){
@@ -79,7 +111,10 @@ public class TotemDB {
 
             if (distanceSquared <= rangeSquared) {
                 totemData = new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i),
-                        this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i), this.totem_Z.get(i), this.totemWorld.get(i));
+                        this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i),
+                        this.totem_Z.get(i), this.totemWorld.get(i), this.shareTotemPercentage.get(i), this.isMythicalWaterActive.get(i),
+                        this.isExpBoosterActive.get(i), this.isOverHotspotActive.get(i), this.isTreasureHunterActive.get(i),
+                        this.isEntropyHoarder.get(i), this.totemSlotString.get(i));
                 if(!totemData.isExpired()){
                     totemDataList.add(totemData);
                 }
@@ -122,6 +157,13 @@ public class TotemDB {
                 this.totem_X.remove(i);
                 this.totem_Z.remove(i);
                 this.totemWorld.remove(i);
+                this.shareTotemPercentage.remove(i);
+                this.isMythicalWaterActive.remove(i);
+                this.isExpBoosterActive.remove(i);
+                this.isOverHotspotActive.remove(i);
+                this.isTreasureHunterActive.remove(i);
+                this.isEntropyHoarder.remove(i);
+                this.totemSlotString.remove(i);
                 return 1;
             }
             return 0;
@@ -135,4 +177,7 @@ public class TotemDB {
         return instance;
     }
 
+    public ArrayList<Boolean> getIsEntropyHoarder() {
+        return isEntropyHoarder;
+    }
 }
