@@ -18,6 +18,8 @@ public class TotemDB {
     private ArrayList<Integer> totem_Z = new ArrayList<>();
     private ArrayList<String> totemWorld = new ArrayList<>();
 
+    private final Gson gson = new Gson();
+
     public TotemDB() {
         instance = this;
     }
@@ -50,11 +52,16 @@ public class TotemDB {
     public String getTotemData(String username){
         for(int i = 0; i < this.username.size(); i++){
             if(this.username.get(i).equals(username)){
-                Gson gson = new Gson();
                 return gson.toJson(new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i), this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i), this.totem_Z.get(i), this.totemWorld.get(i)));
             }
         }
         return null;
+    }
+
+    public String getTotemData(int index){
+        int i;
+        i = index;
+        return gson.toJson(new TotemData(this.username.get(i), this.valueTotemCooldown.get(i), this.valueTotemActiveTime.get(i), this.valueTotemRange.get(i), this.lastTotemtime.get(i), this.lastTotemCooldownTime.get(i),this.totem_X.get(i), this.totem_Z.get(i), this.totemWorld.get(i)));
     }
 
     public String findTotemData(double playerX, double playerZ, String playerWorld){
@@ -118,6 +125,10 @@ public class TotemDB {
                 return 1;
             }
             return 0;
+    }
+
+    public int size(){
+        return this.username.size();
     }
 
     public static TotemDB getInstance() {
